@@ -255,6 +255,7 @@ namespace WpfMotionCapture
                 }
             }
 
+            // remove this
             //return new Quaternion();
         }
 
