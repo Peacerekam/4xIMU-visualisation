@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Globalization;
+using HelixToolkit.Wpf;
 //using System.Numerics;
 
 namespace WpfMotionCapture
@@ -26,15 +27,22 @@ namespace WpfMotionCapture
     public partial class MainWindow : Window
     {
 
+        public Model3D TheSkeleton { get; set; }
+
         private SerialPort usb;
 
         CustomData customData = new CustomData();
 
         //private int frameCount = 0;
         //public string date = "";
-        
+
+        //ModelImporter importer;
+        //Model3DGroup skeleton;
+        //Model3D rest;
+
         public MainWindow()
         {
+            
             string arduinoPort = Arduino.GetArduinoSerialPort();
             customData.DebugText = Arduino.debugText;
 
@@ -48,7 +56,20 @@ namespace WpfMotionCapture
 
             InitializeComponent();
             CompositionTarget.Rendering += Update;
-            //this.DataContext = customData;
+
+            viewport3D1.LookAt(new Point3D(3.5f, 0, 1), 20, 0);
+
+            
+            //importer = new ModelImporter();
+            //skeleton = new Model3DGroup();
+            
+            //load the files
+            //rest = importer.Load(@"Bones/Group4.obj");
+
+            //skeleton.Children.Add(rest);
+
+            //this.TheSkeleton = skeleton;
+            this.DataContext = customData;
         }
 
 
@@ -99,11 +120,12 @@ namespace WpfMotionCapture
 
                 // parsujemy odebrane wartości kwaternionów z Arduino na liczby float
                 q0 = float.Parse(tempData[1]);
-                q1 = float.Parse(tempData[2]);
-                q2 = float.Parse(tempData[4]);
+                q1 = float.Parse(tempData[4]);
+                q2 = float.Parse(tempData[2]);
                 q3 = float.Parse(tempData[3]);
 
-                Quaternion combined = new Quaternion(q0, -q1, -q2, q3);
+                //Quaternion combined = new Quaternion(q0, -q1, -q2, q3);
+                Quaternion combined = new Quaternion(q0, q1, q2, -q3);
 
                 if (int.TryParse(tempData[0], out mpu_i))
                 {
@@ -167,16 +189,16 @@ namespace WpfMotionCapture
                                 y = 2 * (parentQ.X * parentQ.Y + parentQ.W * parentQ.Z);
                                 z = 2 * (parentQ.X * parentQ.Z - parentQ.W * parentQ.Y);
 
-                                this.translate2.OffsetX = -x * jointLength;
-                                this.translate2.OffsetY = -y * jointLength;
-                                this.translate2.OffsetZ = -z * jointLength;
+                                this.translate2.OffsetX = x * jointLength;
+                                this.translate2.OffsetY = y * jointLength;
+                                this.translate2.OffsetZ = z * jointLength;
                                 
-                                customData.OffsetN = -1f;
-                                customData.Offset = 1f;
+                                customData.OffsetN = 1f;
+                                customData.Offset = -1f;
                             }
                             else
                             {
-                                this.translate2.OffsetX = -2.5;
+                                this.translate2.OffsetX = 2.5;
                                 this.translate2.OffsetY = 0;
                                 this.translate2.OffsetZ = 0;
 
@@ -198,16 +220,16 @@ namespace WpfMotionCapture
                                 y = 2 * (parentQ.X * parentQ.Y + parentQ.W * parentQ.Z);
                                 z = 2 * (parentQ.X * parentQ.Z - parentQ.W * parentQ.Y);
 
-                                this.translate3.OffsetX = (-x * this.ArmLength.Value) + this.translate2.OffsetX;
-                                this.translate3.OffsetY = (-y * this.ArmLength.Value) + this.translate2.OffsetY;
-                                this.translate3.OffsetZ = (-z * this.ArmLength.Value) + this.translate2.OffsetZ;
+                                this.translate3.OffsetX = (x * this.ArmLength.Value) + this.translate2.OffsetX;
+                                this.translate3.OffsetY = (y * this.ArmLength.Value) + this.translate2.OffsetY;
+                                this.translate3.OffsetZ = (z * this.ArmLength.Value) + this.translate2.OffsetZ;
 
-                                customData.OffsetN = -1f;
-                                customData.Offset = 1f;
+                                customData.OffsetN = 1f;
+                                customData.Offset = -1f;
                             }
                             else
                             {
-                                this.translate3.OffsetX = -5;
+                                this.translate3.OffsetX = 5;
                                 this.translate3.OffsetY = 0;
                                 this.translate3.OffsetZ = 0;
 
@@ -229,16 +251,16 @@ namespace WpfMotionCapture
                                 y = 2 * (parentQ.X * parentQ.Y + parentQ.W * parentQ.Z);
                                 z = 2 * (parentQ.X * parentQ.Z - parentQ.W * parentQ.Y);
 
-                                this.translate4.OffsetX = (-x * this.ForearmLength.Value) + this.translate3.OffsetX;
-                                this.translate4.OffsetY = (-y * this.ForearmLength.Value) + this.translate3.OffsetY;
-                                this.translate4.OffsetZ = (-z * this.ForearmLength.Value) + this.translate3.OffsetZ;
+                                this.translate4.OffsetX = (x * this.ForearmLength.Value) + this.translate3.OffsetX;
+                                this.translate4.OffsetY = (y * this.ForearmLength.Value) + this.translate3.OffsetY;
+                                this.translate4.OffsetZ = (z * this.ForearmLength.Value) + this.translate3.OffsetZ;
 
-                                customData.OffsetN = -1f;
-                                customData.Offset = 1f;
+                                customData.OffsetN = 1f;
+                                customData.Offset = -1f;
                             }
                             else
                             {
-                                this.translate4.OffsetX = -7.5;
+                                this.translate4.OffsetX = 7.5;
                                 this.translate4.OffsetY = 0;
                                 this.translate4.OffsetZ = 0;
 
