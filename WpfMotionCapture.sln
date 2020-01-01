@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.960
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfMotionCapture", "WpfMotionCapture\WpfMotionCapture.csproj", "{8F45A297-ADCE-4C3B-819F-58047D6801E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F45A297-ADCE-4C3B-819F-58047D6801E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F45A297-ADCE-4C3B-819F-58047D6801E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F45A297-ADCE-4C3B-819F-58047D6801E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F45A297-ADCE-4C3B-819F-58047D6801E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F624D65C-2F74-463D-A518-8E7B88AA312E}
+	EndGlobalSection
+EndGlobal
