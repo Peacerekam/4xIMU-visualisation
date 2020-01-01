@@ -316,7 +316,6 @@ namespace WpfMotionCapture
 
         private void Calibrate(object sender, RoutedEventArgs e)
         {
-            //string message = "frameCount: " + frameCount + "\nZ angle: " + box.AngleZ + "\n\n" + date + "\n\n" + box.Q.X + " : " + box.Q.Y + " : " + box.Q.Z + " : " + box.Q.W;
             MessageBox.Show("Próba kalibracji...");
             usb.Write("#");
         }
