@@ -254,7 +254,9 @@ namespace WpfMotionCapture
                     
                 }
             }
-            
+
+            // remove this
+            //return new Quaternion();
         }
 
         // tail to znak końca pojedynczego pakietu z urządzenia zgodnie z kodem Arduino
