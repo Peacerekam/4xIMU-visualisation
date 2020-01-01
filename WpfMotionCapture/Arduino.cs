@@ -22,7 +22,8 @@ namespace WpfMotionCapture
                 //customData.DebugText += p + ", ";
             }
 
-            return ports[1];
+            //return ports[1];
+            return "COM3";
         }
 
 
