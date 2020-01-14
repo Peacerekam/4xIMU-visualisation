@@ -10,7 +10,7 @@ namespace WpfMotionCapture
     public partial class Arduino
     {
         private MainWindow _mainWindow = Application.Current.Windows[0] as MainWindow;
-        public SerialPort usb;
+        private SerialPort usb;
 
         protected string receivedMessage;
         private int maxBufferCharCount = 100;

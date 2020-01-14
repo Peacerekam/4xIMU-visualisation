@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WpfMotionCapture
+﻿namespace WpfMotionCapture
 {
     class Utility
     {
@@ -20,6 +14,7 @@ namespace WpfMotionCapture
                 frameRate = 0;
                 lastTick = System.Environment.TickCount;
             }
+
             frameRate++;
             return lastFrameRate;
         }

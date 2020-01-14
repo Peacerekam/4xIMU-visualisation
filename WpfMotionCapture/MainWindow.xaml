@@ -5,7 +5,13 @@
    xmlns:d = "http://schemas.microsoft.com/expression/blend/2008" 
    xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006" 
    xmlns:local = "clr-namespace:WpfMotionCapture" 
-   mc:Ignorable = "d" Title = "Arduino IMU Test" Height = "500" Width = "650">
+   mc:Ignorable = "d" 
+        
+    Title = "Arduino IMU Test" Height = "500" Width = "650" 
+    WindowState="Maximized"
+    WindowStartupLocation="CenterScreen"
+        
+   >
 
     <Grid>
 
