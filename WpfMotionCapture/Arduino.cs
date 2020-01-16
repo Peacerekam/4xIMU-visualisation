@@ -18,7 +18,7 @@ namespace WpfMotionCapture
         private List<char> tempBuffer = new List<char>();
         private int bulkSize = 0;
 
-        private float q0, q1, q2, q3;
+        public float q0, q1, q2, q3;
         private int mpu_i;
         private char bulkSplitChar = '/';
         private char splitChar = ';';
@@ -133,7 +133,7 @@ namespace WpfMotionCapture
                     //this.quaternion2.Quaternion = new Quaternion(-qq.W, qq.X, -qq.Y, -qq.Z);
 
                     Quaternion parentQ;
-                    double x, y, z;
+                    double x = 0, y = 0, z = 0;
 
                     float jointLength = 2f;
 
@@ -233,6 +233,35 @@ namespace WpfMotionCapture
                                 _mainWindow.customData.OffsetN = 0f;
                                 _mainWindow.customData.Offset = 0f;
                             }
+
+
+
+                            Transform3DGroup myTransformGroup = new Transform3DGroup();
+
+                            RotateTransform3D myInitialRotate = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0,0,1), 90));
+                            RotateTransform3D myRotateTransform = new RotateTransform3D(new QuaternionRotation3D(combined));
+
+                            //                                                                   |
+                            //                                                     change this:  |
+                            //                                                                   V
+                            TranslateTransform3D myInitialTranslate = new TranslateTransform3D(20000, 0, 0);
+                            TranslateTransform3D myLastTranslate = new TranslateTransform3D(-2, 0, 0);
+
+                            ScaleTransform3D myScaleTransform = new ScaleTransform3D(new Vector3D(_mainWindow.ForearmLength.Value/8, 0.2, 0.2));
+
+                            myRotateTransform.CenterX = (x * _mainWindow.ArmLength.Value) + _mainWindow.translate2.OffsetX;
+                            myRotateTransform.CenterY = (y * _mainWindow.ArmLength.Value) + _mainWindow.translate2.OffsetY;
+                            myRotateTransform.CenterZ = (z * _mainWindow.ArmLength.Value) + _mainWindow.translate2.OffsetZ;
+                            
+                            myTransformGroup.Children.Add(myInitialRotate);
+                            myTransformGroup.Children.Add(myInitialTranslate);
+                            myTransformGroup.Children.Add(myScaleTransform);
+                            myTransformGroup.Children.Add(myRotateTransform);
+                            myTransformGroup.Children.Add(myLastTranslate);
+
+                            _mainWindow._model1.Transform = myTransformGroup;
+
+
 
                             break;
 

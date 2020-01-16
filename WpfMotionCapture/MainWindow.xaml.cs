@@ -9,15 +9,9 @@ namespace WpfMotionCapture
 {
     public partial class MainWindow : Window
     {
-        private SerialPort usb;
         private Arduino uno;
 
         public CustomData customData = new CustomData();
-
-        //public Model3D TheSkeleton { get; set; }
-        //ModelImporter importer;
-        //Model3DGroup skeleton;
-        //Model3D rest;
 
         public MainWindow()
         {
@@ -30,22 +24,37 @@ namespace WpfMotionCapture
             viewport3D1.LookAt(new Point3D(3.5f, 0, 1), 20, 0);
 
             this.DataContext = customData;
-
-            //importer = new ModelImporter();
-            //skeleton = new Model3DGroup();
-
-            //load the files
-            //rest = importer.Load(@"Bones/Group4.obj");
-
-            //skeleton.Children.Add(rest);
-            //this.TheSkeleton = skeleton;
         }
 
+        private void Test3DModel()
+        {
+
+            // test 3d stuff
+            Transform3DGroup myTransformGroup = new Transform3DGroup();
+
+            RotateTransform3D myRotateTransform = new RotateTransform3D(new QuaternionRotation3D(new Quaternion(uno.q0, uno.q1, uno.q2, -uno.q3)));
+            ScaleTransform3D myScaleTransform = new ScaleTransform3D(new Vector3D(customData.ForearmLength, 1, 1));
+
+            myRotateTransform.CenterX = 3;
+            myRotateTransform.CenterY = 0;
+            myRotateTransform.CenterZ = 0;
+
+            myTransformGroup.Children.Add(myScaleTransform);
+            myTransformGroup.Children.Add(myRotateTransform);
+
+            _model1.Transform = myTransformGroup;
+
+
+        }
 
         private void Update(object sender, EventArgs e)
         {
             string a = uno.usb.ReadExisting();
             uno.OnSerialDataReceived(a);
+
+
+            //Test3DModel();
+
 
             customData = new CustomData
             {
@@ -65,7 +74,7 @@ namespace WpfMotionCapture
         private void Calibrate(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Próba kalibracji...");
-            usb.Write("#");
+            uno.usb.Write("#");
         }
     }
 

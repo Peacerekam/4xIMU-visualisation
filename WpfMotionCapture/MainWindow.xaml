@@ -36,12 +36,12 @@
             Grid.ColumnSpan="2"  
             Grid.RowSpan="4">
 
-
             <helix:DefaultLights/>
             <helix:GridLinesVisual3D Center="3 0 0" Width="13" Length="13" MinorDistance="1" MajorDistance="1" Thickness="0.01"/>
 
-            <ModelVisual3D Content="{Binding TheSkeleton, Mode = OneWay}"/>
-            
+
+            <helix:FileModelVisual3D x:Name="_model1" Source="C:\Users\Kamil\Desktop\m\MaleLowPoly.obj" />
+
             <helix:BoxVisual3D 
                 Center="0,0,0" 
                 Height="1"   Width="1"   Length="2" >
